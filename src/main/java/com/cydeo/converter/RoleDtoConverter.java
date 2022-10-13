@@ -8,17 +8,23 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationPropertiesBinding
-public class RoleDtoConverter implements Converter<String, RoleDTO> {  //"2"
+public class RoleDtoConverter implements Converter<String, RoleDTO> {
 
-    private final RoleService roleService;
+    RoleService roleService;
 
     public RoleDtoConverter(RoleService roleService) {
         this.roleService = roleService;
     }
 
-
     @Override
     public RoleDTO convert(String source) {
+
+        if (source == null || source.equals("")) {  //  Select  -> ""
+            return null;
+        }
+
         return roleService.findById(Long.parseLong(source));
+
     }
+
 }
