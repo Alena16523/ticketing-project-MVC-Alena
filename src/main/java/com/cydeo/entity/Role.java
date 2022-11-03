@@ -1,15 +1,19 @@
 package com.cydeo.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.databind.ser.Serializers;
+import lombok.*;
 
-@Data
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role {
+@Entity
+@Table(name = "roles")
+public class Role extends BaseEntity {
 
-    private Long id;
     private String description;
 
 
