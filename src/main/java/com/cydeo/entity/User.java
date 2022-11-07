@@ -12,11 +12,13 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Table(name="users")
-@Where(clause = "is_deleted=false")
+//@Where(clause = "is_deleted=false")
 public class User extends BaseEntity{
 
     private String firstName;
     private String lastName;
+
+    @Column(unique = true)
     private String userName;
     private String passWord;
     private boolean enabled;
