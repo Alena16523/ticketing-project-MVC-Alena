@@ -79,8 +79,13 @@ public class ProjectServiceImpl implements ProjectService {
         //change the isDeleted field to true
         project.setIsDeleted(true);
 
+        //after project deleted, must chane projectCode as well
+        project.setProjectCode(project.getProjectCode()+"-"+ project.getId());
+
         //save in the db updated object
         projectRepository.save(project);
+
+        taskService.deleteByProject(projectMapper.convertToDto(project));
     }
 
     @Override
@@ -88,6 +93,8 @@ public class ProjectServiceImpl implements ProjectService {
         Project project=projectRepository.findByProjectCode(projectCode);
         project.setProjectStatus(Status.COMPLETE);
         projectRepository.save(project);
+
+        taskService.completeByProject(projectMapper.convertToDto(project));
     }
 
     @Override
@@ -107,4 +114,6 @@ public class ProjectServiceImpl implements ProjectService {
                 }
         ).collect(Collectors.toList());
     }
+
+
 }
